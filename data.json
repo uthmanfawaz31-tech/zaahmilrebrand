@@ -1,0 +1,28 @@
+{
+  "kill_switch": false,
+  "portals": [
+    {
+      "id": 1,
+      "name": "Demo XC Server",
+      "url": "http://line.server.com:8080",
+      "type": 1,
+      "enabled": 1,
+      "sort": 1
+    }
+  ],
+  "sports": {
+    "enabled": true,
+    "title": "Sports Guide",
+    "url": "https://m.livesoccertv.com/",
+    "javascript": true,
+    "maintenance_message": ""
+  },
+  "theme": {
+    "enabled": 0,
+    "bg_id": 16,
+    "accent_id": 4,
+    "white": 1,
+    "revision": 1
+  },
+  "vpns": []
+}

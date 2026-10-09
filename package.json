@@ -1,0 +1,11 @@
+{
+  "name": "promax-tivimate-control-panel",
+  "version": "1.0.0",
+  "description": "Vercel-compatible control panel for TiViMate Rebrand",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {}
+}
