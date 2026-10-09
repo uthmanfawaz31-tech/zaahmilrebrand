@@ -73,11 +73,13 @@ module.exports = (req, res) => {
     });
   }
 
-  // 2. Portals / DNS list: /api.php or /api/portals
-  if (pathname.endsWith('/api.php') || pathname.includes('/api/portals')) {
+  // 2. Portals / DNS list: /api.php or /api/portals or /api/dns.php
+  if (pathname.endsWith('/api.php') || pathname.includes('/api/portals') || pathname.includes('/api/dns.php')) {
     const activePortals = (storeData.portals || []).filter(p => p.enabled);
     const lines = activePortals.map(p => `${p.name}|${p.url}|${p.type}`).join('\n') + (activePortals.length ? '\n' : '');
-    return sendGzip(res, lines, 'text/plain; charset=utf-8');
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    return res.status(200).send(lines);
   }
 
   // 3. Sports section: /api/sports.php or /api/sports
@@ -102,7 +104,9 @@ module.exports = (req, res) => {
         }
       ]
     };
-    return sendGzip(res, JSON.stringify(sportsObj), 'application/json; charset=utf-8');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    return res.status(200).json(sportsObj);
   }
 
   // 4. Remote Theme: /api/theme.php or /api/theme
@@ -128,10 +132,26 @@ module.exports = (req, res) => {
       vpns: vpns,
       profiles: vpns
     };
-    return sendGzip(res, JSON.stringify(vpnObj), 'application/json; charset=utf-8');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    return res.status(200).json(vpnObj);
   }
 
-  // 6. Admin API: /api/admin/data
+  // 6. Admin Authentication & Data Endpoint
+  if (pathname.includes('/api/admin/login')) {
+    if (req.method === 'POST') {
+      let body = req.body;
+      if (typeof body === 'string') {
+        try { body = JSON.parse(body); } catch(e) {}
+      }
+      const pass = (storeData.admin_password || "admin123");
+      if (body && body.password === pass) {
+        return res.status(200).json({ success: true, token: "auth_token_ok" });
+      }
+      return res.status(401).json({ success: false, message: "Invalid Password" });
+    }
+  }
+
   if (pathname.includes('/api/admin/data')) {
     if (req.method === 'GET') {
       return res.status(200).json(storeData);
