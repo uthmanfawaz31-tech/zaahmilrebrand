@@ -18,17 +18,22 @@
     .table-dark { --bs-table-bg: #1e293b; }
     .nav-tabs .nav-link { color: #94a3b8; border: none; font-weight: 500; padding: 12px 20px; }
     .nav-tabs .nav-link.active { color: #38bdf8; background-color: #1e293b; border-bottom: 3px solid #38bdf8; }
+    .logo-img { max-height: 50px; object-fit: contain; }
   </style>
 </head>
 <body class="p-3 p-md-5">
   <div class="container-lg">
-    <!-- Header -->
+    <!-- Header with User Logo -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center pb-4 mb-4 border-bottom border-secondary">
-      <div>
-        <h2 class="fw-bold mb-1 text-info"><i class="fa-solid fa-tv me-2"></i>TiViMate Control Panel</h2>
-        <p class="text-secondary mb-0">Manage IPTV Portals, Kill Switch, Sports & Theme Settings</p>
+      <div class="d-flex align-items-center gap-3">
+        <img src="/logo.png" alt="Logo" class="logo-img rounded" onerror="this.style.display='none'">
+        <div>
+          <h2 class="fw-bold mb-1 text-info"><i class="fa-solid fa-tv me-2"></i>TiViMate Control Panel</h2>
+          <p class="text-secondary mb-0">Manage IPTV Portals, Kill Switch, Sports & Theme Settings</p>
+        </div>
       </div>
       <div class="mt-3 mt-md-0 d-flex gap-2">
+        <a href="/app.apk" download class="btn btn-success"><i class="fa-solid fa-download me-1"></i> Download App APK</a>
         <button onclick="loadData()" class="btn btn-outline-light"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
         <button onclick="saveData()" class="btn btn-primary"><i class="fa-solid fa-floppy-disk me-1"></i> Save Changes</button>
       </div>
@@ -149,9 +154,12 @@
 
     </div>
 
-    <!-- Quick API Tester Card -->
+    <!-- Quick Links Card -->
     <div class="card mt-4">
-      <div class="card-header"><i class="fa-solid fa-vial me-2"></i>Test API Endpoints directly</div>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="fa-solid fa-mobile-screen-button me-2"></i>Direct App Download & API Endpoints</span>
+        <a href="/app.apk" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-download me-1"></i> Download app.apk</a>
+      </div>
       <div class="card-body d-flex flex-wrap gap-2">
         <a href="/api.php" target="_blank" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-link me-1"></i> GET /api.php (Portals)</a>
         <a href="/guard/check?order_id=test" target="_blank" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-link me-1"></i> GET /guard/check</a>
@@ -242,7 +250,6 @@
     }
 
     async function saveData() {
-      // Collect inputs
       currentData.kill_switch = document.getElementById('killSwitchToggle').checked;
       
       if (!currentData.sports) currentData.sports = {};
@@ -273,7 +280,6 @@
       }
     }
 
-    // Initial Load
     loadData();
   </script>
 </body>
