@@ -32,8 +32,8 @@ let storeData = {
     maintenance_message: ""
   },
   theme: {
-    enabled: true,
-    bg_id: 16,
+    enabled: false,
+    bg_id: 0,
     accent_id: 4,
     white: 1,
     revision: 1

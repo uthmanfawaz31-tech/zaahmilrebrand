@@ -387,10 +387,10 @@
           <div class="mb-3">
             <label class="form-label text-secondary small">Background color</label>
             <select id="bgColorSelect" class="form-select" onchange="updateThemePreview()">
-              <option value="16">Dark</option>
+              <option value="0">Dark</option>
               <option value="1">Deep Blue</option>
               <option value="2">Purple</option>
-              <option value="0">Black</option>
+              <option value="3">Black</option>
             </select>
           </div>
 
@@ -723,7 +723,7 @@
         stateEl.className = 'text-warning font-monospace';
       }
 
-      const bgNames = { "16": "Dark", "1": "Deep Blue", "2": "Purple", "0": "Black" };
+      const bgNames = { "0": "Dark", "1": "Deep Blue", "2": "Purple", "3": "Black" };
       const accentNames = { "4": "Blue", "3": "Cyan", "5": "Orange", "1": "Red", "2": "Green" };
 
       document.getElementById('previewBgText').textContent = bgNames[bgVal] || 'Dark';
