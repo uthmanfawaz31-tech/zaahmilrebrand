@@ -1,5 +1,33 @@
 {
+  "admin_password": "admin123",
   "kill_switch": false,
+  "killed_builds": [],
+  "builds_seen": [
+    {
+      "order_id": "cd5b9c07abad293e99c8e5582b164277",
+      "last_seen": "2026-10-08 06:27:15",
+      "killed": false
+    },
+    {
+      "order_id": "demo",
+      "last_seen": "2026-08-03 08:31:56",
+      "killed": false
+    },
+    {
+      "order_id": "TESTBUILD",
+      "last_seen": "2026-08-03 02:58:54",
+      "killed": false
+    }
+  ],
+  "authorized_packages": [
+    {
+      "id": 1,
+      "package": "com.bainz.tivi",
+      "label": "Customer App",
+      "enabled": true,
+      "last_seen": "2026-10-04 11:10:13"
+    }
+  ],
   "portals": [
     {
       "id": 1,
@@ -12,13 +40,13 @@
   ],
   "sports": {
     "enabled": true,
-    "title": "Sports Guide",
-    "url": "https://m.livesoccertv.com/",
     "javascript": true,
+    "title": "Sports",
+    "url": "https://sport-tv-guide.live/widgetsingle/5ae7b",
     "maintenance_message": ""
   },
   "theme": {
-    "enabled": 0,
+    "enabled": true,
     "bg_id": 16,
     "accent_id": 4,
     "white": 1,

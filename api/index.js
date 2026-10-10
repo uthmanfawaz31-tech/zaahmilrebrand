@@ -1,10 +1,19 @@
-const zlib = require('zlib');
 const fs = require('fs');
 const path = require('path');
 
-// Default initial config state
+// Default initial configuration state for PRO MAX Panel
 let storeData = {
+  admin_password: "admin123",
   kill_switch: false,
+  killed_builds: [],
+  builds_seen: [
+    { order_id: "cd5b9c07abad293e99c8e5582b164277", last_seen: "2026-10-08 06:27:15", killed: false },
+    { order_id: "demo", last_seen: "2026-08-03 08:31:56", killed: false },
+    { order_id: "TESTBUILD", last_seen: "2026-08-03 02:58:54", killed: false }
+  ],
+  authorized_packages: [
+    { id: 1, package: "com.bainz.tivi", label: "Customer App", enabled: true, last_seen: "2026-10-04 11:10:13" }
+  ],
   portals: [
     {
       id: 1,
@@ -17,13 +26,13 @@ let storeData = {
   ],
   sports: {
     enabled: true,
-    title: "Sports Guide",
-    url: "https://m.livesoccertv.com/",
     javascript: true,
+    title: "Sports",
+    url: "https://sport-tv-guide.live/widgetsingle/5ae7b",
     maintenance_message: ""
   },
   theme: {
-    enabled: 0,
+    enabled: true,
     bg_id: 16,
     accent_id: 4,
     white: 1,
@@ -32,28 +41,26 @@ let storeData = {
   vpns: []
 };
 
-// Try loading local data.json if available
+// Load persistent data.json if available
 try {
   const dataPath = path.join(__dirname, '../data.json');
   if (fs.existsSync(dataPath)) {
     const raw = fs.readFileSync(dataPath, 'utf8');
-    storeData = JSON.parse(raw);
+    storeData = { ...storeData, ...JSON.parse(raw) };
   }
 } catch (e) {}
 
-function sendGzip(res, bodyString, contentType = 'text/plain; charset=utf-8') {
-  const gz = zlib.gzipSync(Buffer.from(bodyString, 'utf8'));
-  res.setHeader('Content-Type', contentType);
-  res.setHeader('Content-Encoding', 'gzip');
-  res.setHeader('Content-Length', gz.length);
-  res.setHeader('Cache-Control', 'no-cache');
-  res.status(200).send(gz);
+function saveStoreData() {
+  try {
+    const dataPath = path.join(__dirname, '../data.json');
+    fs.writeFileSync(dataPath, JSON.stringify(storeData, null, 2));
+  } catch (e) {}
 }
 
 module.exports = (req, res) => {
-  // CORS Headers
+  // Global CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE, PUT');
   res.setHeader('Access-Control-Allow-Headers', '*');
 
   if (req.method === 'OPTIONS') {
@@ -62,18 +69,53 @@ module.exports = (req, res) => {
 
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname;
+  const searchParams = url.searchParams;
 
-  // 1. Kill switch: /guard/check
+  // Track app package if header present
+  const reqPkg = req.headers['x-app-package'];
+  if (reqPkg && Array.isArray(storeData.authorized_packages)) {
+    const pkgItem = storeData.authorized_packages.find(p => p.package === reqPkg);
+    const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    if (pkgItem) {
+      pkgItem.last_seen = nowStr;
+    } else {
+      storeData.authorized_packages.push({
+        id: Date.now(),
+        package: reqPkg,
+        label: "(auto)",
+        enabled: true,
+        last_seen: nowStr
+      });
+    }
+    saveStoreData();
+  }
+
+  // 1. Guard / Kill Switch Check: /guard/check
   if (pathname.includes('/guard/check')) {
+    const orderId = searchParams.get('order_id') || searchParams.get('build_id') || 'default';
+    const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+    if (!Array.isArray(storeData.builds_seen)) storeData.builds_seen = [];
+    let b = storeData.builds_seen.find(item => item.order_id === orderId);
+    if (b) {
+      b.last_seen = nowStr;
+    } else {
+      storeData.builds_seen.unshift({ order_id: orderId, last_seen: nowStr, killed: false });
+      if (storeData.builds_seen.length > 50) storeData.builds_seen.pop();
+    }
+    saveStoreData();
+
+    const isKilled = !!storeData.kill_switch || (storeData.killed_builds || []).includes(orderId) || (b && b.killed);
+    
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache');
     return res.status(200).json({
       success: true,
-      killed: storeData.kill_switch
+      killed: isKilled
     });
   }
 
-  // 2. Portals / DNS list: /api.php or /api/portals or /api/dns.php
+  // 2. Portals / DNS List: /api.php or /api/portals or /api/dns.php
   if (pathname.endsWith('/api.php') || pathname.includes('/api/portals') || pathname.includes('/api/dns.php')) {
     const activePortals = (storeData.portals || []).filter(p => p.enabled);
     const lines = activePortals.map(p => `${p.name}|${p.url}|${p.type}`).join('\n') + (activePortals.length ? '\n' : '');
@@ -82,7 +124,7 @@ module.exports = (req, res) => {
     return res.status(200).send(lines);
   }
 
-  // 3. Sports section: /api/sports.php or /api/sports
+  // 3. Sports Section: /api/sports.php or /api/sports
   if (pathname.includes('/api/sports')) {
     const sports = storeData.sports || {};
     const sportsObj = {
@@ -137,7 +179,7 @@ module.exports = (req, res) => {
     return res.status(200).json(vpnObj);
   }
 
-  // 6. Admin Authentication & Data Endpoint
+  // 6. Admin Authentication API
   if (pathname.includes('/api/admin/login')) {
     if (req.method === 'POST') {
       let body = req.body;
@@ -152,6 +194,7 @@ module.exports = (req, res) => {
     }
   }
 
+  // 7. Admin Data Read / Save Endpoint
   if (pathname.includes('/api/admin/data')) {
     if (req.method === 'GET') {
       return res.status(200).json(storeData);
@@ -163,10 +206,7 @@ module.exports = (req, res) => {
       }
       if (body) {
         storeData = { ...storeData, ...body };
-        try {
-          const dataPath = path.join(__dirname, '../data.json');
-          fs.writeFileSync(dataPath, JSON.stringify(storeData, null, 2));
-        } catch (e) {}
+        saveStoreData();
       }
       return res.status(200).json({ success: true, data: storeData });
     }
@@ -175,6 +215,6 @@ module.exports = (req, res) => {
   // Fallback
   return res.status(200).json({
     status: "online",
-    message: "ProMax TiViMate Control Panel is Running on Vercel"
+    message: "PRO MAX TiViMate Control Panel is Running on Vercel"
   });
 };
