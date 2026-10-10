@@ -3,34 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRO MAX TiViMate Control Panel</title>
+  <title>PRO MAX TiViMate Panel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0b0f19;
-      --card-bg: #131b2e;
+      --bg-dark: #0d121d;
+      --card-bg: #141b2b;
       --card-border: #1e293b;
-      --sidebar-bg: #0d1322;
+      --sidebar-bg: #090d16;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-blue: #2563eb;
-      --accent-blue-hover: #1d4ed8;
-      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-blue-hover: #2563eb;
     }
 
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       min-height: 100vh;
       margin: 0;
       padding: 0;
     }
 
-    /* Sidebar Styles */
+    /* Sidebar Navigation */
     .sidebar {
-      width: 260px;
+      width: 250px;
       background-color: var(--sidebar-bg);
       border-right: 1px solid var(--card-border);
       min-height: 100vh;
@@ -42,17 +41,14 @@
     }
 
     .brand-title {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       padding: 24px 20px;
       color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
-    .brand-title span.max-blue {
-      color: var(--accent-cyan);
+    .brand-title span.blue-max {
+      color: var(--accent-blue);
     }
 
     .nav-menu {
@@ -61,38 +57,33 @@
       margin: 0;
     }
 
-    .nav-menu-item {
-      margin-bottom: 4px;
-    }
-
     .nav-menu-link {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 24px;
-      color: var(--text-muted);
+      padding: 12px 24px;
+      color: #94a3b8;
       text-decoration: none;
       font-weight: 500;
       font-size: 0.95rem;
       transition: all 0.2s ease;
-      border-left: 3px solid transparent;
+      border-left: 4px solid transparent;
     }
 
     .nav-menu-link:hover {
-      color: var(--text-main);
+      color: #ffffff;
       background-color: rgba(255, 255, 255, 0.03);
     }
 
     .nav-menu-link.active {
       color: #ffffff;
-      background-color: #17223b;
-      border-left-color: var(--accent-cyan);
+      background-color: #172236;
+      border-left-color: var(--accent-blue);
       font-weight: 600;
     }
 
     /* Main Content Layout */
     .main-content {
-      margin-left: 260px;
+      margin-left: 250px;
       padding: 30px 40px;
       min-height: 100vh;
     }
@@ -110,84 +101,70 @@
       }
     }
 
-    /* Card & Components UI */
+    /* Cards & Controls */
     .promax-card {
       background-color: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .promax-card-header {
-      font-size: 1.25rem;
+    .stat-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      height: 100%;
+    }
+    .stat-number {
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 12px;
       color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      font-weight: 500;
     }
 
-    .subtitle-text {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-    }
-
-    .form-label {
+    .btn-blue-action {
+      background-color: var(--accent-blue);
+      border: none;
+      color: #ffffff;
       font-weight: 600;
-      font-size: 0.9rem;
-      color: #cbd5e1;
-      margin-bottom: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+    .btn-blue-action:hover {
+      background-color: var(--accent-blue-hover);
+      color: #ffffff;
     }
 
     .form-control, .form-select {
-      background-color: #0b0f19;
+      background-color: #090d16;
       border: 1px solid #1e293b;
       color: #f8fafc;
       border-radius: 8px;
       padding: 10px 14px;
     }
     .form-control:focus, .form-select:focus {
-      background-color: #0b0f19;
+      background-color: #090d16;
       color: #ffffff;
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
-    }
-
-    .btn-promax-primary {
-      background-color: var(--accent-blue);
-      border: none;
-      color: #ffffff;
-      font-weight: 600;
-      padding: 10px 24px;
-      border-radius: 8px;
-      transition: background-color 0.2s ease;
-    }
-    .btn-promax-primary:hover {
-      background-color: var(--accent-blue-hover);
-      color: #ffffff;
-    }
-
-    .color-dot {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      margin-right: 8px;
-      vertical-align: middle;
+      box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
     }
 
     .table-promax {
       --bs-table-bg: transparent;
       --bs-table-color: var(--text-main);
-      margin-bottom: 0;
     }
     .table-promax th {
-      color: var(--text-muted);
-      font-size: 0.8rem;
+      color: #64748b;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       border-bottom-color: var(--card-border);
@@ -197,159 +174,122 @@
       border-bottom-color: rgba(255, 255, 255, 0.05);
       padding: 14px 12px;
       vertical-align: middle;
+      font-size: 0.9rem;
     }
 
-    .badge-viva {
-      color: #4ade80;
-      font-weight: 600;
-    }
-    .badge-killed {
-      color: #f87171;
-      font-weight: 600;
+    .color-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
     }
 
-    /* Login Modal Container */
-    #loginOverlay {
+    /* Login Screen Container */
+    #loginCard {
       max-width: 400px;
       margin: 100px auto;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 32px;
     }
   </style>
 </head>
 <body>
 
-  <!-- MOBILE HEADER BAR -->
-  <div class="d-lg-none d-flex justify-content-between align-items-center p-3 bg-dark border-bottom border-secondary">
-    <div class="brand-title p-0"><i class="fa-solid fa-tv me-2 text-info"></i>PRO <span class="max-blue">MAX</span></div>
+  <!-- MOBILE HEADER -->
+  <div class="d-lg-none d-flex justify-content-between align-items-center p-3 border-bottom border-secondary" style="background-color: var(--sidebar-bg);">
+    <div class="brand-title p-0">PRO <span class="blue-max">MAX</span></div>
     <button class="btn btn-outline-light btn-sm" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
   </div>
 
-  <!-- LOGIN SECTION -->
+  <!-- LOGIN SECTION (Matches Screenshot #5) -->
   <div id="loginSection" class="container">
-    <div id="loginOverlay">
-      <div class="promax-card text-center p-4">
-        <div class="brand-title justify-content-center pb-2">
-          <i class="fa-solid fa-tv me-2 text-info"></i>PRO <span class="max-blue">MAX</span>
-        </div>
-        <p class="subtitle-text">Enter Admin Password to access Control Panel</p>
-        <form onsubmit="handleLogin(event)">
-          <div class="mb-3 text-start">
-            <label class="form-label">Password</label>
-            <input type="password" id="adminPassInput" class="form-control" placeholder="Default: admin123" required autofocus>
-          </div>
-          <div id="loginError" class="alert alert-danger d-none py-2 small"></div>
-          <button type="submit" class="btn btn-promax-primary w-100 mt-2">
-            <i class="fa-solid fa-right-to-bracket me-2"></i>Login
-          </button>
-        </form>
+    <div id="loginCard" class="text-center">
+      <div class="brand-title justify-content-center p-0 mb-1">
+        PRO <span class="blue-max">MAX</span>
       </div>
+      <p class="text-secondary small mb-4">TiViMate Panel</p>
+      <form onsubmit="handleLogin(event)">
+        <div class="mb-3 text-start">
+          <input type="text" id="userInput" class="form-control form-control-lg" placeholder="User" value="admin" required autofocus>
+        </div>
+        <div class="mb-4 text-start">
+          <input type="password" id="passInput" class="form-control form-control-lg" placeholder="Password" required>
+        </div>
+        <div id="loginError" class="alert alert-danger d-none py-2 small"></div>
+        <button type="submit" class="btn btn-blue-action btn-lg w-100">
+          Get into
+        </button>
+      </form>
     </div>
   </div>
 
   <!-- MAIN APP CONTAINER -->
   <div id="appContainer" class="d-none">
 
-    <!-- SIDEBAR NAVIGATION -->
+    <!-- SIDEBAR MENU -->
     <div class="sidebar" id="sidebarNav">
       <div class="brand-title">
-        <img src="/logo.png" alt="Logo" style="max-height: 32px;" onerror="this.style.display='none'">
-        <span>PRO <span class="max-blue">MAX</span></span>
+        PRO <span class="blue-max">MAX</span>
       </div>
       <ul class="nav-menu">
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link active" onclick="switchTab('dashboard', this)">
-            <i class="fa-solid fa-chart-line"></i> Dashboard
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('portals', this)">
-            <i class="fa-solid fa-server"></i> Portals / DNS
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('vpns', this)">
-            <i class="fa-solid fa-shield-halved"></i> VPN Profiles
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('appearance', this)">
-            <i class="fa-solid fa-palette"></i> Appearance
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('sports', this)">
-            <i class="fa-solid fa-football"></i> Sports
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('packages', this)">
-            <i class="fa-solid fa-cubes"></i> App Packages
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-menu-link" onclick="switchTab('killswitch', this)">
-            <i class="fa-solid fa-power-off"></i> Kill switch
-          </a>
-        </li>
-        <li class="nav-menu-item mt-4">
-          <a href="#" class="nav-menu-link text-danger" onclick="logout()">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> Go out
-          </a>
-        </li>
+        <li><a href="#" class="nav-menu-link active" onclick="switchTab('dashboard', this)">Dashboard</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('portales', this)">Portales / DNS</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('vpns', this)">VPN Profiles</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('apariencia', this)">Apariencia</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('sports', this)">Sports</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('packages', this)">App Packages</a></li>
+        <li><a href="#" class="nav-menu-link" onclick="switchTab('killswitch', this)">Kill switch</a></li>
+        <li class="mt-4"><a href="#" class="nav-menu-link text-danger" onclick="logout()">Salir</a></li>
       </ul>
     </div>
 
-    <!-- MAIN CONTENT AREA -->
+    <!-- MAIN CONTENT -->
     <div class="main-content">
 
-      <!-- TOP DASHBOARD HEADER -->
+      <!-- TOP BAR -->
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h3 class="fw-bold mb-1" id="sectionTitle">Dashboard</h3>
-          <span class="badge bg-secondary">TiViMate Control Panel v5.3.3</span>
-        </div>
+        <h3 class="fw-bold mb-0" id="sectionTitle">Dashboard</h3>
         <div class="d-flex gap-2">
           <a href="/app.apk" download class="btn btn-success btn-sm"><i class="fa-solid fa-download me-1"></i> Download app.apk</a>
           <button onclick="loadData()" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
         </div>
       </div>
 
-      <!-- SECTIONS -->
-
-      <!-- 1. DASHBOARD OVERVIEW SECTION -->
+      <!-- 1. DASHBOARD TAB (Matches Screenshot #4) -->
       <div id="sec-dashboard" class="tab-pane-content">
         <div class="row g-3 mb-4">
-          <div class="col-md-3">
-            <div class="promax-card mb-0">
-              <div class="text-secondary small fw-bold mb-1">ACTIVE PORTALS</div>
-              <h2 class="fw-bold text-info mb-0" id="statPortals">1</h2>
+          <div class="col-6 col-md-3">
+            <div class="stat-card">
+              <div class="stat-number" id="statPortales">1</div>
+              <div class="stat-label">Portales activos</div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="promax-card mb-0">
-              <div class="text-secondary small fw-bold mb-1">AUTHORIZED PACKAGES</div>
-              <h2 class="fw-bold text-success mb-0" id="statPackages">1</h2>
+          <div class="col-6 col-md-3">
+            <div class="stat-card">
+              <div class="stat-number" id="statBuilds">3</div>
+              <div class="stat-label">Builds vistos</div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="promax-card mb-0">
-              <div class="text-secondary small fw-bold mb-1">SEEN BUILDS</div>
-              <h2 class="fw-bold text-warning mb-0" id="statBuilds">0</h2>
+          <div class="col-6 col-md-3">
+            <div class="stat-card">
+              <div class="stat-number" id="statSports">ON</div>
+              <div class="stat-label">Sports</div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="promax-card mb-0">
-              <div class="text-secondary small fw-bold mb-1">GLOBAL KILL SWITCH</div>
-              <h2 class="fw-bold mb-0" id="statKillSwitch">OFF</h2>
+          <div class="col-6 col-md-3">
+            <div class="stat-card">
+              <div class="stat-number" id="statKill">OFF</div>
+              <div class="stat-label">Kill global</div>
             </div>
           </div>
         </div>
 
         <div class="promax-card">
-          <div class="promax-card-header">
-            <span><i class="fa-solid fa-link me-2 text-info"></i>API Endpoints</span>
-          </div>
-          <p class="subtitle-text">Verified endpoints called remotely by the TiViMate rebranded application:</p>
-          <div class="d-flex flex-wrap gap-2">
+          <div class="fw-bold mb-2"><i class="fa-solid fa-link me-2 text-info"></i>API Endpoints Connected to App</div>
+          <div class="d-flex flex-wrap gap-2 mt-3">
             <a href="/api.php" target="_blank" class="btn btn-outline-info btn-sm">GET /api.php (Portals)</a>
             <a href="/guard/check?order_id=test" target="_blank" class="btn btn-outline-warning btn-sm">GET /guard/check</a>
             <a href="/api/sports.php" target="_blank" class="btn btn-outline-success btn-sm">GET /api/sports.php</a>
@@ -358,168 +298,199 @@
         </div>
       </div>
 
-      <!-- 2. PORTALS / DNS SECTION -->
-      <div id="sec-portals" class="tab-pane-content d-none">
-        <div class="promax-card">
-          <div class="promax-card-header">
-            <span>Portals / DNS</span>
-            <button onclick="addPortal()" class="btn btn-sm btn-success"><i class="fa-solid fa-plus me-1"></i> Add Portal</button>
+      <!-- 2. PORTALES / DNS TAB (Matches Screenshot #3) -->
+      <div id="sec-portales" class="tab-pane-content d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h4 class="fw-bold mb-1">Portales / DNS</h4>
+            <p class="text-secondary small mb-0">Los servidores que ve el cliente al "Añadir lista".</p>
           </div>
-          <p class="subtitle-text">Portals and Xtream Codes / M3U servers served to the app via /api.php</p>
+          <button onclick="addPortal()" class="btn btn-blue-action">+ Nuevo portal</button>
+        </div>
+
+        <div class="promax-card p-0 overflow-hidden">
           <div class="table-responsive">
-            <table class="table table-promax align-middle">
+            <table class="table table-promax align-middle mb-0">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Name</th>
-                  <th>Server URL (XC / M3U)</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th class="text-end">Actions</th>
+                  <th>NOMBRE</th>
+                  <th>URL</th>
+                  <th>TIPO</th>
+                  <th>ESTADO</th>
+                  <th class="text-end">ACCIONES</th>
                 </tr>
               </thead>
-              <tbody id="portalsTable"></tbody>
+              <tbody id="portalesTable"></tbody>
             </table>
           </div>
-          <button onclick="saveData()" class="btn btn-promax-primary mt-3"><i class="fa-solid fa-floppy-disk me-1"></i> Guardar</button>
         </div>
+        <button onclick="saveData()" class="btn btn-blue-action">Guardar</button>
       </div>
 
-      <!-- 3. VPN PROFILES SECTION -->
+      <!-- 3. VPN PROFILES TAB (Matches Screenshot #2) -->
       <div id="sec-vpns" class="tab-pane-content d-none">
-        <div class="promax-card">
-          <div class="promax-card-header">VPN Profiles</div>
-          <p class="subtitle-text">Remote VPN profiles returned to clients via /api/vpns.php</p>
-          <div class="alert alert-info">
-            <i class="fa-solid fa-circle-info me-2"></i> No custom VPN profiles configured. Default direct connection active.
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h4 class="fw-bold mb-1">VPN Profiles</h4>
+            <p class="text-secondary small mb-0">Servidores OpenVPN que ve el cliente.</p>
+          </div>
+          <button class="btn btn-blue-action">+ Nuevo servidor</button>
+        </div>
+
+        <div class="promax-card p-0 overflow-hidden mb-3">
+          <div class="table-responsive">
+            <table class="table table-promax align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>PAÍS</th>
+                  <th>NOMBRE</th>
+                  <th>SERVER</th>
+                  <th>PROTO/PORT</th>
+                  <th>USER</th>
+                  <th class="text-end">ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>UN</td>
+                  <td>VPNBook Server</td>
+                  <td>vpnbook.com</td>
+                  <td>TCP/80</td>
+                  <td>vpnbook</td>
+                  <td class="text-end"><button class="btn btn-sm btn-outline-danger">Eliminar</button></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <p class="text-secondary small">Nota: la clave de VPNBook rota cada semana — actualizala acá cuando cambie.</p>
       </div>
 
-      <!-- 4. APPEARANCE SECTION -->
-      <div id="sec-appearance" class="tab-pane-content d-none">
+      <!-- 4. APARIENCIA TAB (Matches Screenshot #1) -->
+      <div id="sec-apariencia" class="tab-pane-content d-none">
         <div class="promax-card">
-          <div class="promax-card-header">Appearance</div>
-          <p class="subtitle-text">
+          <h4 class="fw-bold mb-2">Appearance</h4>
+          <p class="text-secondary small mb-4">
             I chose the app color for ALL clients. It's applied automatically (the app downloads it from the app <code>/api/theme.php</code>). If it's turned off, the client chooses their color in the app.
           </p>
 
           <div class="form-check form-switch mb-4">
-            <input class="form-check-input" type="checkbox" id="themeForceToggle" onchange="updateThemePreview()">
-            <label class="form-check-label fw-bold ms-2" for="themeForceToggle">
+            <input class="form-check-input" type="checkbox" id="forceColorCheck" onchange="updateThemePreview()">
+            <label class="form-check-label fw-bold ms-2" for="forceColorCheck">
               Force color from the panel <span class="text-secondary font-monospace fw-normal">(If you turn it off, the customer is in charge)</span>
             </label>
           </div>
 
-          <div class="row g-4 mb-4">
-            <div class="col-md-6">
-              <label class="form-label">Background color</label>
-              <select id="themeBgSelect" class="form-select" onchange="updateThemePreview()">
-                <option value="16">⚫ Dark (Default)</option>
-                <option value="1">🔵 Deep Blue</option>
-                <option value="2">🟣 Dark Purple</option>
-                <option value="3">🟢 Dark Green</option>
-                <option value="0">⬛ Midnight Black</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Enhancement color</label>
-              <select id="themeAccentSelect" class="form-select" onchange="updateThemePreview()">
-                <option value="4">🔵 Blue</option>
-                <option value="3">🩵 Cyan</option>
-                <option value="5">🟧 Orange</option>
-                <option value="1">🔴 Red</option>
-                <option value="2">🟢 Green</option>
-                <option value="6">🟣 Purple</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Color selection</label>
-              <select id="themeWhiteSelect" class="form-select" onchange="updateThemePreview()">
-                <option value="1">White</option>
-                <option value="0">Accent Color</option>
-              </select>
-            </div>
-          </div>
-
-          <button onclick="saveData()" class="btn btn-promax-primary mb-4">Keep</button>
-
-          <!-- VIEW PREVIEW CARD -->
-          <div class="p-3 rounded border border-secondary" style="background-color: #0b0f19;">
-            <div class="text-secondary small fw-bold mb-3 text-uppercase">VIEW</div>
-            <div class="d-flex justify-content-between mb-2">
-              <span class="text-secondary">Background</span>
-              <span><span id="previewBgDot" class="color-dot" style="background: #475569;"></span><span id="previewBgName">Dark</span></span>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span class="text-secondary">Enhancement</span>
-              <span><span id="previewAccentDot" class="color-dot" style="background: #2563eb;"></span><span id="previewAccentName">Blue</span></span>
-            </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-secondary">State</span>
-              <span id="previewState" class="badge-viva">forced by the panel</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. SPORTS SECTION -->
-      <div id="sec-sports" class="tab-pane-content d-none">
-        <div class="promax-card">
-          <div class="promax-card-header">Sports</div>
-          <p class="subtitle-text">The sports section (guide). The app requests it in <code>/api/sports.php</code>.</p>
-
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="sportsActiveCheck">
-            <label class="form-check-label fw-bold" for="sportsActiveCheck">Active sports</label>
-          </div>
-
-          <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" id="sportsJsCheck">
-            <label class="form-check-label fw-bold" for="sportsJsCheck">Allow JavaScript</label>
+          <div class="mb-3">
+            <label class="form-label text-secondary small">Background color</label>
+            <select id="bgColorSelect" class="form-select" onchange="updateThemePreview()">
+              <option value="16">Dark</option>
+              <option value="1">Deep Blue</option>
+              <option value="2">Purple</option>
+              <option value="0">Black</option>
+            </select>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Qualification</label>
-            <input type="text" id="sportsQualInput" class="form-control" value="Sports">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Guide URL</label>
-            <input type="text" id="sportsUrlInput" class="form-control" placeholder="https://sport-tv-guide.live/widgetsingle/5ae7b">
+            <label class="form-label text-secondary small">Enhancement color</label>
+            <select id="accentColorSelect" class="form-select" onchange="updateThemePreview()">
+              <option value="4">Blue</option>
+              <option value="3">Cyan</option>
+              <option value="5">Orange</option>
+              <option value="1">Red</option>
+              <option value="2">Green</option>
+            </select>
           </div>
 
           <div class="mb-4">
-            <label class="form-label">Maintenance message (optional)</label>
-            <textarea id="sportsMsgInput" class="form-control" rows="2"></textarea>
+            <label class="form-label text-secondary small">Color selection</label>
+            <select id="whiteColorSelect" class="form-select" onchange="updateThemePreview()">
+              <option value="1">White</option>
+              <option value="0">Accent Color</option>
+            </select>
           </div>
 
-          <button onclick="saveData()" class="btn btn-promax-primary">Keep</button>
+          <button onclick="saveData()" class="btn btn-blue-action mb-4">Keep</button>
+
+          <!-- VIEW BOX -->
+          <div class="p-3 rounded border border-secondary" style="background-color: #090d16;">
+            <div class="text-secondary small fw-bold mb-3">VIEW</div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-secondary">Background</span>
+              <span><span class="color-dot" style="background: #475569;"></span><span id="previewBgText">Dark</span></span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-secondary">Enhancement</span>
+              <span><span class="color-dot" style="background: #3b82f6;"></span><span id="previewAccentText">Blue</span></span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-secondary">State</span>
+              <span id="previewStateText" class="text-success fw-bold">forced by the panel</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 6. APP PACKAGES SECTION -->
+      <!-- 5. SPORTS TAB -->
+      <div id="sec-sports" class="tab-pane-content d-none">
+        <div class="promax-card">
+          <h4 class="fw-bold mb-2">Sports</h4>
+          <p class="text-secondary small mb-4">The sports section (guide). The app requests it in <code>/api/sports.php</code>.</p>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="sportsActive">
+            <label class="form-check-label fw-bold" for="sportsActive">Active sports</label>
+          </div>
+
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="sportsJs">
+            <label class="form-check-label fw-bold" for="sportsJs">Allow JavaScript</label>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-secondary small">Qualification</label>
+            <input type="text" id="sportsQual" class="form-control" value="Sports">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-secondary small">Guide URL</label>
+            <input type="text" id="sportsUrl" class="form-control" value="https://sport-tv-guide.live/widgetsingle/5ae7b">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label text-secondary small">Maintenance message (optional)</label>
+            <textarea id="sportsMsg" class="form-control" rows="2"></textarea>
+          </div>
+
+          <button onclick="saveData()" class="btn btn-blue-action">Keep</button>
+        </div>
+      </div>
+
+      <!-- 6. APP PACKAGES TAB -->
       <div id="sec-packages" class="tab-pane-content d-none">
         <div class="promax-card mb-4">
-          <div class="promax-card-header">App Packages</div>
-          <p class="subtitle-text">
+          <h4 class="fw-bold mb-2">App Packages</h4>
+          <p class="text-secondary small mb-4">
             Sólo los packages autorizados y <b>Enabled</b> reciben respuesta del API (la app manda su package en el header <code>X-App-Package</code>). Deshabilitar = bloquear/matar esa app.
           </p>
 
-          <div class="p-3 rounded border border-secondary mb-4" style="background-color: #0d1322;">
+          <div class="p-3 rounded border border-secondary mb-4" style="background-color: #090d16;">
             <div class="fw-bold mb-3">AUTORIZAR PACKAGE</div>
             <div class="mb-3">
-              <label class="form-label">Package (applicationId, ej com.bainz.tivi)</label>
-              <input type="text" id="pkgAppIdInput" class="form-control" placeholder="com.bainz.tivi">
+              <label class="form-label text-secondary small">Package (applicationId, ej com.bainz.tivi)</label>
+              <input type="text" id="pkgIdInput" class="form-control" placeholder="com.bainz.tivi">
             </div>
             <div class="mb-3">
-              <label class="form-label">Etiqueta</label>
-              <input type="text" id="pkgLabelInput" class="form-control" value="Customer App">
+              <label class="form-label text-secondary small">Etiqueta</label>
+              <input type="text" id="pkgTagInput" class="form-control" value="Customer App">
             </div>
-            <button onclick="addPackage()" class="btn btn-promax-primary">Guardar</button>
+            <button onclick="addPackage()" class="btn btn-blue-action">Guardar</button>
           </div>
 
-          <div class="fw-bold mb-2">AUTORIZADOS (<span id="pkgCount">0</span>)</div>
+          <div class="fw-bold mb-2">AUTORIZADOS (<span id="pkgCount">1</span>)</div>
           <div class="table-responsive">
             <table class="table table-promax align-middle">
               <thead>
@@ -531,27 +502,27 @@
                   <th class="text-end">ACCIONES</th>
                 </tr>
               </thead>
-              <tbody id="packagesTable"></tbody>
+              <tbody id="pkgTable"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- 7. KILL SWITCH SECTION -->
+      <!-- 7. KILL SWITCH TAB -->
       <div id="sec-killswitch" class="tab-pane-content d-none">
         <div class="promax-card mb-4">
-          <div class="promax-card-header">Kill switch</div>
-          <p class="subtitle-text">Desactivar la app remotamente. La app consulta <code>/guard/check?order_id=...</code></p>
+          <h4 class="fw-bold mb-2">Kill switch</h4>
+          <p class="text-secondary small mb-4">Desactivar la app remotamente. La app consulta <code>/guard/check?order_id=...</code></p>
 
-          <div class="p-3 rounded border border-secondary mb-4" style="background-color: #0d1322;">
+          <div class="p-3 rounded border border-secondary mb-4" style="background-color: #090d16;">
             <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="killAllCheck">
-              <label class="form-check-label fw-bold" for="killAllCheck">Matar TODAS las builds</label>
+              <input class="form-check-input" type="checkbox" id="killAllSwitch">
+              <label class="form-check-label fw-bold" for="killAllSwitch">Matar TODAS las builds</label>
             </div>
-            <button onclick="saveData()" class="btn btn-promax-primary">Guardar</button>
+            <button onclick="saveData()" class="btn btn-blue-action">Guardar</button>
           </div>
 
-          <div class="fw-bold mb-2">BUILDS VISTOS (<span id="buildsCount">0</span>)</div>
+          <div class="fw-bold mb-2">BUILDS VISTOS (<span id="buildsCount">3</span>)</div>
           <div class="table-responsive">
             <table class="table table-promax align-middle">
               <thead>
@@ -592,7 +563,7 @@
 
     async function handleLogin(e) {
       e.preventDefault();
-      const pass = document.getElementById('adminPassInput').value;
+      const pass = document.getElementById('passInput').value;
       const errBox = document.getElementById('loginError');
       errBox.classList.add('d-none');
 
@@ -631,9 +602,9 @@
 
       const titles = {
         dashboard: 'Dashboard',
-        portals: 'Portals / DNS',
+        portales: 'Portales / DNS',
         vpns: 'VPN Profiles',
-        appearance: 'Appearance',
+        apariencia: 'Appearance',
         sports: 'Sports',
         packages: 'App Packages',
         killswitch: 'Kill switch'
@@ -653,77 +624,70 @@
     }
 
     function render() {
-      // 1. Overview Dashboard Stats
-      document.getElementById('statPortals').textContent = (currentData.portals || []).filter(p => p.enabled).length;
-      document.getElementById('statPackages').textContent = (currentData.authorized_packages || []).length;
-      document.getElementById('statBuilds').textContent = (currentData.builds_seen || []).length;
-      document.getElementById('statKillSwitch').textContent = currentData.kill_switch ? 'ON (KILLED)' : 'OFF';
-      document.getElementById('statKillSwitch').className = currentData.kill_switch ? 'fw-bold text-danger mb-0' : 'fw-bold text-success mb-0';
+      // 1. Dashboard Stats
+      const activePortals = (currentData.portals || []).filter(p => p.enabled).length;
+      const seenBuilds = (currentData.builds_seen || []).length;
+      const sportsEnabled = (currentData.sports || {}).enabled !== false;
+      const killSwitchOn = !!currentData.kill_switch;
 
-      // 2. Portals
-      const portalsTbody = document.getElementById('portalsTable');
-      portalsTbody.innerHTML = '';
+      document.getElementById('statPortales').textContent = activePortals;
+      document.getElementById('statBuilds').textContent = seenBuilds;
+      document.getElementById('statSports').textContent = sportsEnabled ? 'ON' : 'OFF';
+      document.getElementById('statKill').textContent = killSwitchOn ? 'ON' : 'OFF';
+
+      // 2. Portales
+      const portTbody = document.getElementById('portalesTable');
+      portTbody.innerHTML = '';
       (currentData.portals || []).forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${idx + 1}</td>
-          <td><input type="text" class="form-control form-control-sm" value="${p.name || ''}" onchange="currentData.portals[${idx}].name=this.value"></td>
-          <td><input type="text" class="form-control form-control-sm" value="${p.url || ''}" onchange="currentData.portals[${idx}].url=this.value"></td>
-          <td>
-            <select class="form-select form-select-sm" onchange="currentData.portals[${idx}].type=parseInt(this.value)">
-              <option value="1" ${p.type === 1 ? 'selected' : ''}>XC</option>
-              <option value="2" ${p.type === 2 ? 'selected' : ''}>M3U</option>
-            </select>
-          </td>
-          <td>
-            <button class="btn btn-sm ${p.enabled ? 'btn-success' : 'btn-secondary'}" onclick="currentData.portals[${idx}].enabled=${p.enabled ? 0 : 1}; render();">
-              ${p.enabled ? 'Enabled' : 'Disabled'}
-            </button>
-          </td>
+          <td>${idx}</td>
+          <td>${p.name || 'Servidor 1'}</td>
+          <td><code>${p.url || ''}</code></td>
+          <td>${p.type === 1 ? 'xtream' : 'm3u'}</td>
+          <td><span class="text-success font-monospace">${p.enabled ? 'activo' : 'inactivo'}</span></td>
           <td class="text-end">
-            <button onclick="currentData.portals.splice(${idx}, 1); render();" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            <button onclick="currentData.portals.splice(${idx},1); render();" class="btn btn-sm text-danger border-0">Editar</button>
           </td>
         `;
-        portalsTbody.appendChild(tr);
+        portTbody.appendChild(tr);
       });
 
-      // 3. Appearance / Theme
+      // 3. Apariencia
       const theme = currentData.theme || {};
-      document.getElementById('themeForceToggle').checked = !!theme.enabled;
-      document.getElementById('themeBgSelect').value = theme.bg_id || 16;
-      document.getElementById('themeAccentSelect').value = theme.accent_id || 4;
-      document.getElementById('themeWhiteSelect').value = theme.white !== undefined ? theme.white : 1;
+      document.getElementById('forceColorCheck').checked = !!theme.enabled;
+      document.getElementById('bgColorSelect').value = theme.bg_id || 16;
+      document.getElementById('accentColorSelect').value = theme.accent_id || 4;
+      document.getElementById('whiteColorSelect').value = theme.white !== undefined ? theme.white : 1;
       updateThemePreview();
 
       // 4. Sports
       const sports = currentData.sports || {};
-      document.getElementById('sportsActiveCheck').checked = sports.enabled !== false;
-      document.getElementById('sportsJsCheck').checked = sports.javascript !== false;
-      document.getElementById('sportsQualInput').value = sports.title || 'Sports';
-      document.getElementById('sportsUrlInput').value = sports.url || '';
-      document.getElementById('sportsMsgInput').value = sports.maintenance_message || '';
+      document.getElementById('sportsActive').checked = sports.enabled !== false;
+      document.getElementById('sportsJs').checked = sports.javascript !== false;
+      document.getElementById('sportsQual').value = sports.title || 'Sports';
+      document.getElementById('sportsUrl').value = sports.url || 'https://sport-tv-guide.live/widgetsingle/5ae7b';
+      document.getElementById('sportsMsg').value = sports.maintenance_message || '';
 
-      // 5. App Packages
+      // 5. Packages
       const pkgs = currentData.authorized_packages || [];
       document.getElementById('pkgCount').textContent = pkgs.length;
-      const pkgTbody = document.getElementById('packagesTable');
+      const pkgTbody = document.getElementById('pkgTable');
       pkgTbody.innerHTML = '';
       pkgs.forEach((pkg, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${pkg.label || 'Customer App'}</td>
           <td><code>${pkg.package || ''}</code></td>
-          <td><span class="badge bg-success">Enabled</span></td>
+          <td><span class="text-success font-monospace">Enabled</span></td>
           <td class="text-secondary small">${pkg.last_seen || 'N/A'}</td>
-          <td class="text-end">
-            <button onclick="removePackage(${idx})" class="btn btn-sm btn-outline-danger">Editar</button>
-          </td>
+          <td class="text-end"><button onclick="removePackage(${idx})" class="btn btn-sm text-secondary border-0">Editar</button></td>
         `;
         pkgTbody.appendChild(tr);
       });
 
       // 6. Kill Switch
-      document.getElementById('killAllCheck').checked = !!currentData.kill_switch;
+      document.getElementById('killAllSwitch').checked = !!currentData.kill_switch;
       const builds = currentData.builds_seen || [];
       document.getElementById('buildsCount').textContent = builds.length;
       const buildsTbody = document.getElementById('buildsTable');
@@ -734,9 +698,9 @@
         tr.innerHTML = `
           <td><code>${b.order_id}</code></td>
           <td class="text-secondary small">${b.last_seen || 'N/A'}</td>
-          <td><span class="${isKilled ? 'badge-killed' : 'badge-viva'}">${isKilled ? 'matada' : 'viva'}</span></td>
+          <td><span class="${isKilled ? 'text-danger fw-bold' : 'text-success font-monospace'}">${isKilled ? 'matada' : 'viva'}</span></td>
           <td class="text-end">
-            <button onclick="toggleBuildKill(${idx})" class="btn btn-sm ${isKilled ? 'btn-outline-success' : 'btn-outline-danger'}">
+            <button onclick="toggleBuildKill(${idx})" class="btn btn-sm ${isKilled ? 'text-success' : 'text-danger'} border-0">
               ${isKilled ? 'Revivir' : 'Matar'}
             </button>
           </td>
@@ -746,53 +710,54 @@
     }
 
     function updateThemePreview() {
-      const forced = document.getElementById('themeForceToggle').checked;
-      const bgVal = document.getElementById('themeBgSelect').value;
-      const accentVal = document.getElementById('themeAccentSelect').value;
+      const forced = document.getElementById('forceColorCheck').checked;
+      const bgVal = document.getElementById('bgColorSelect').value;
+      const accentVal = document.getElementById('accentColorSelect').value;
 
-      const stateEl = document.getElementById('previewState');
+      const stateEl = document.getElementById('previewStateText');
       if (forced) {
         stateEl.textContent = 'forced by the panel';
-        stateEl.className = 'badge-viva';
+        stateEl.className = 'text-success font-monospace';
       } else {
         stateEl.textContent = 'client in charge';
-        stateEl.className = 'text-warning fw-bold';
+        stateEl.className = 'text-warning font-monospace';
       }
 
-      const bgNames = { "16": "Dark", "1": "Deep Blue", "2": "Dark Purple", "3": "Dark Green", "0": "Midnight Black" };
-      const accentNames = { "4": "Blue", "3": "Cyan", "5": "Orange", "1": "Red", "2": "Green", "6": "Purple" };
+      const bgNames = { "16": "Dark", "1": "Deep Blue", "2": "Purple", "0": "Black" };
+      const accentNames = { "4": "Blue", "3": "Cyan", "5": "Orange", "1": "Red", "2": "Green" };
 
-      document.getElementById('previewBgName').textContent = bgNames[bgVal] || 'Dark';
-      document.getElementById('previewAccentName').textContent = accentNames[accentVal] || 'Blue';
+      document.getElementById('previewBgText').textContent = bgNames[bgVal] || 'Dark';
+      document.getElementById('previewAccentText').textContent = accentNames[accentVal] || 'Blue';
     }
 
     function addPortal() {
+      const name = prompt('Nombre del portal:', 'Servidor 1');
+      const url = prompt('URL del portal:', 'http://tu-servidor.com:8080');
+      if (!url) return;
       if (!currentData.portals) currentData.portals = [];
       currentData.portals.push({
         id: Date.now(),
-        name: 'New IPTV Server',
-        url: 'http://your-iptv-dns.com:8080',
+        name: name || 'Servidor 1',
+        url: url,
         type: 1,
-        enabled: 1,
-        sort: currentData.portals.length + 1
+        enabled: 1
       });
-      render();
+      saveData();
     }
 
     function addPackage() {
-      const pkgName = document.getElementById('pkgAppIdInput').value.trim();
-      const label = document.getElementById('pkgLabelInput').value.trim() || 'Customer App';
-      if (!pkgName) return alert('Enter package name');
-
+      const pkgName = document.getElementById('pkgIdInput').value.trim();
+      const tag = document.getElementById('pkgTagInput').value.trim() || 'Customer App';
+      if (!pkgName) return alert('Package name missing');
       if (!currentData.authorized_packages) currentData.authorized_packages = [];
       currentData.authorized_packages.push({
         id: Date.now(),
         package: pkgName,
-        label: label,
+        label: tag,
         enabled: true,
         last_seen: new Date().toISOString().replace('T', ' ').substring(0, 19)
       });
-      document.getElementById('pkgAppIdInput').value = '';
+      document.getElementById('pkgIdInput').value = '';
       saveData();
     }
 
@@ -808,21 +773,20 @@
     }
 
     async function saveData() {
-      currentData.kill_switch = document.getElementById('killAllCheck').checked;
+      currentData.kill_switch = document.getElementById('killAllSwitch').checked;
 
       if (!currentData.theme) currentData.theme = {};
-      currentData.theme.enabled = document.getElementById('themeForceToggle').checked ? 1 : 0;
-      currentData.theme.bg_id = parseInt(document.getElementById('themeBgSelect').value) || 16;
-      currentData.theme.accent_id = parseInt(document.getElementById('themeAccentSelect').value) || 4;
-      currentData.theme.white = parseInt(document.getElementById('themeWhiteSelect').value) || 1;
-      currentData.theme.revision = (currentData.theme.revision || 1) + 1;
+      currentData.theme.enabled = document.getElementById('forceColorCheck').checked ? 1 : 0;
+      currentData.theme.bg_id = parseInt(document.getElementById('bgColorSelect').value) || 16;
+      currentData.theme.accent_id = parseInt(document.getElementById('accentColorSelect').value) || 4;
+      currentData.theme.white = parseInt(document.getElementById('whiteColorSelect').value) || 1;
 
       if (!currentData.sports) currentData.sports = {};
-      currentData.sports.enabled = document.getElementById('sportsActiveCheck').checked;
-      currentData.sports.javascript = document.getElementById('sportsJsCheck').checked;
-      currentData.sports.title = document.getElementById('sportsQualInput').value;
-      currentData.sports.url = document.getElementById('sportsUrlInput').value;
-      currentData.sports.maintenance_message = document.getElementById('sportsMsgInput').value;
+      currentData.sports.enabled = document.getElementById('sportsActive').checked;
+      currentData.sports.javascript = document.getElementById('sportsJs').checked;
+      currentData.sports.title = document.getElementById('sportsQual').value;
+      currentData.sports.url = document.getElementById('sportsUrl').value;
+      currentData.sports.maintenance_message = document.getElementById('sportsMsg').value;
 
       try {
         const res = await fetch('/api/admin/data', {
@@ -832,7 +796,6 @@
         });
         const resp = await res.json();
         if (resp.success) {
-          alert('Guardado exitosamente / Saved successfully!');
           render();
         }
       } catch (e) {
